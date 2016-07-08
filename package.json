@@ -2,12 +2,12 @@
   "name": "nmap_peep",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "nmapeep.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Luis 'noncetonic' Santana",
+  "license": "Unlicense",
   "dependencies": {
     "webshot": "^0.18.0",
     "xml2js": "^0.4.17"
