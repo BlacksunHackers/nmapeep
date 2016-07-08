@@ -15,6 +15,8 @@ var options = {
 
 var parser = new xml2js.Parser();
 fs.readFile(process.argv[2], function(err, data) {
+	var timestamp = Date().toString();
+	fs.mkdir(timestamp);
 	parser.parseString(data, function (err, result) {
 		result.nmaprun.host.forEach(function(element, key) {
 			var ipAddress = element.address[0]["$"].addr; // Grabs IP Addresses
@@ -23,7 +25,7 @@ fs.readFile(process.argv[2], function(err, data) {
 			ports = ports.filter(function(service) {
 				if (service.service[0]["$"].name == "http") {
 					console.log("HTTP Server discovered at: " + ipAddress);
-					webshot("http://" + ipAddress + ":" + service["$"].portid, ipAddress + "-" + service["$"].portid + ".png", options, function(err) {
+					webshot("http://" + ipAddress + ":" + service["$"].portid, __dirname + "/" + timestamp + "/" + ipAddress + "-" + service["$"].portid + ".png", options, function(err) {
 						if (err) {
 							console.log(err);
 						}
@@ -34,7 +36,7 @@ fs.readFile(process.argv[2], function(err, data) {
 				}
 				else if (service.service[0]["$"].name == "https") {
 					console.log("HTTPS Server discovered at: " + ipAddress + ":" + service["$"].portid);
-					webshot("https://" + ipAddress + ":" + service["$"].portid, ipAddress + "-" + service["$"].portid + ".png", options, function(err) {
+					webshot("https://" + ipAddress + ":" + service["$"].portid, __dirname + "/" + timestamp + "/" + ipAddress + "-" + service["$"].portid + ".png", options, function(err) {
 						if (err) {
 							console.log(err);
 						}
