@@ -14,7 +14,7 @@ var options = {
 };
 
 var parser = new xml2js.Parser();
-fs.readFile(__dirname + '/testing.xml', function(err, data) {
+fs.readFile(process.argv[2], function(err, data) {
 	parser.parseString(data, function (err, result) {
 		result.nmaprun.host.forEach(function(element, key) {
 			var ipAddress = element.address[0]["$"].addr; // Grabs IP Addresses
