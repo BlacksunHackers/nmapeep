@@ -31,11 +31,10 @@ var useragents = [
 
 var random_agent = useragents[Math.floor(Math.random()*useragents.length)];
 
-console.log(random_agent);
-
 var options = {
 	phantomConfig: {'ignore-ssl-errors': 'true'},
-	renderDelay: 1000
+	renderDelay: 1000,
+	userAgent: random_agent
 };
 
 var parser = new xml2js.Parser();
