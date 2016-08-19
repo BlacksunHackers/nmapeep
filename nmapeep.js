@@ -32,6 +32,27 @@ var useragents = [
 var random_agent = useragents[Math.floor(Math.random()*useragents.length)];
 
 var options = {
+	onLoadStarted: {
+		fn: function() {
+			return console.log("On Load Finished");
+		}
+	},
+
+	onResourceRequested: {
+		fn: function()
+		{
+			console.log(req);
+		}
+	},
+
+
+	onResourceReceived:
+	{
+		fn: function(res) {
+			console.log(res);
+		}
+	},
+
 	phantomConfig: {'ignore-ssl-errors': 'true'},
 	renderDelay: 1000,
 	userAgent: random_agent
@@ -49,11 +70,12 @@ fs.readFile(process.argv[2], function(err, data) {
 			ports = ports.filter(function(service) {
 				if (service.service[0]["$"].name == "http") {
 					console.log("HTTP Server discovered at: " + ipAddress);
-					webshot("http://" + ipAddress + ":" + service["$"].portid, __dirname + "/" + timestamp + "/" + ipAddress + "-" + service["$"].portid + ".png", options, function(err) {
+					webshot("http://" + ipAddress + ":" + service["$"].portid, __dirname + "/" + timestamp + "/" + ipAddress + "-" + service["$"].portid + ".png", options, function(res, err) {
 						if (err) {
 							console.log(err);
 						}
 						else {
+							console.log(err);
 							console.log(ipAddress + ":" + service["$"].portid + " saved");
 						}
 					});
